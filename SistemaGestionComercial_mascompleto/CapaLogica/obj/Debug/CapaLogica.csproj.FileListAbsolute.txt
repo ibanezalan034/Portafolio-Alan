@@ -1,0 +1,9 @@
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\bin\Debug\CapaLogica.dll
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\bin\Debug\CapaLogica.pdb
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\bin\Debug\CapaDatos.dll
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\bin\Debug\CapaDatos.pdb
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\obj\Debug\CapaLogica.csproj.AssemblyReference.cache
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\obj\Debug\CapaLogica.csproj.CoreCompileInputs.cache
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\obj\Debug\CapaLogica.csproj.Up2Date
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\obj\Debug\CapaLogica.dll
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaLogica\obj\Debug\CapaLogica.pdb

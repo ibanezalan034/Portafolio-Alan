@@ -1,0 +1,16 @@
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\bin\Debug\CapaPresentacion.exe
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\bin\Debug\CapaPresentacion.pdb
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\bin\Debug\CapaDatos.dll
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\bin\Debug\CapaLogica.dll
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\bin\Debug\CapaDatos.pdb
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\bin\Debug\CapaLogica.pdb
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.AssemblyReference.cache
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.FormPrincipal.resources
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.GenerateResource.cache
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CoreCompileInputs.cache
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPres.61CA7C38.Up2Date
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.exe
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.pdb
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.forms.FormNotaCredito.resources
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.forms.FormNotaDebito.resources
+C:\Users\Arima\Downloads\SistemaGestionComercial_mascompleto\CapaPresentacion\obj\Debug\CapaPresentacion.Forms.FormInformeCotejo.resources

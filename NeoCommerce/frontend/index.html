@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoCommerce | Futuristic E-commerce</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="grid-bg"></div>
+
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">◈</span>
+            <span class="logo-text">NEO<span class="accent">COMMERCE</span></span>
+        </div>
+        <nav class="nav">
+            <button class="nav-btn" data-view="home">INICIO</button>
+            <button class="nav-btn" data-view="tienda">TIENDA</button>
+            <button class="nav-btn" data-view="productos" id="navProductos" style="display:none;">CAJA</button>
+            <button class="nav-btn" id="btnLogin">LOGIN</button>
+            <button class="nav-btn accent-btn" id="btnRegister">REGISTRO</button>
+        </nav>
+        <div class="user-info" id="userInfo" style="display:none;">
+            <span class="user-badge" id="userBadge"></span>
+            <button class="nav-btn logout-btn" id="btnLogout">SALIR</button>
+        </div>
+    </header>
+
+    <section class="view active" id="view-home">
+        <div class="hero">
+            <h1 class="hero-title">
+                <span class="glitch" data-text="FUTURO">FUTURO</span><br>
+                <span class="gradient-text">DEL COMERCIO</span>
+            </h1>
+            <p class="hero-subtitle">Plataforma e-commerce con gestión multi-rol: administradores, gerentes, cajeros, repositorios y proveedores.</p>
+            <div class="hero-buttons">
+                <button class="cta-btn" id="heroRegister">COMENZAR AHORA</button>
+                <button class="cta-btn secondary" id="heroLogin">INICIAR SESIÓN</button>
+            </div>
+        </div>
+        <div class="roles-grid">
+            <div class="role-card"><div class="role-icon">⚡</div><h3>ADMINISTRADOR</h3><p>Control total del sistema</p></div>
+            <div class="role-card"><div class="role-icon">📊</div><h3>GERENTE</h3><p>Reportes y gestión</p></div>
+            <div class="role-card"><div class="role-icon">💳</div><h3>CAJERO</h3><p>Procesamiento de ventas</p></div>
+            <div class="role-card"><div class="role-icon">📦</div><h3>REPOSITOR</h3><p>Control de inventario</p></div>
+            <div class="role-card"><div class="role-icon">🚚</div><h3>PROVEEDOR</h3><p>Suministro de productos</p></div>
+        </div>
+    </section>
+
+    <section class="view" id="view-tienda">
+        <h2 class="section-title">CATÁLOGO DE PRODUCTOS</h2>
+        <div class="shop-container">
+            <div class="products-side"><div class="products-grid" id="tiendaProductsGrid"></div></div>
+            <div class="cart-side">
+                <div class="cart-header"><h3>🛒 CARRITO</h3><span class="cart-count" id="cartCount">0</span></div>
+                <div class="cart-items" id="cartItems"><p class="empty-cart">El carrito está vacío</p></div>
+                <div class="cart-summary">
+                    <div class="summary-row"><span>Subtotal:</span><span id="cartSubtotal">$0.00</span></div>
+                    <div class="summary-row"><span>IVA (21%):</span><span id="cartIVA">$0.00</span></div>
+                    <div class="summary-row total-row"><span>TOTAL:</span><span id="cartTotal">$0.00</span></div>
+                </div>
+                <button class="checkout-btn" id="btnCheckout" disabled>FINALIZAR COMPRA</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="view" id="view-productos">
+        <h2 class="section-title">CAJA - PUNTO DE VENTA</h2>
+        <div class="shop-container">
+            <div class="products-side"><div class="products-grid" id="productsGrid"></div></div>
+            <div class="cart-side">
+                <div class="cart-header"><h3>🛒 VENTA ACTUAL</h3><span class="cart-count" id="cartCount">0</span></div>
+                <div class="cart-items" id="cartItems"><p class="empty-cart">Sin productos</p></div>
+                <div class="cart-summary">
+                    <div class="summary-row"><span>Subtotal:</span><span id="cartSubtotal">$0.00</span></div>
+                    <div class="summary-row"><span>IVA (21%):</span><span id="cartIVA">$0.00</span></div>
+                    <div class="summary-row total-row"><span>TOTAL:</span><span id="cartTotal">$0.00</span></div>
+                </div>
+                <button class="checkout-btn" id="btnCheckout" disabled>FACTURAR</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="view" id="view-admin-productos">
+        <h2 class="section-title">ADMINISTRACIÓN DE PRODUCTOS</h2>
+        <div class="admin-header"><button class="cta-btn" id="btnNuevoProducto">+ NUEVO PRODUCTO</button></div>
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead><tr><th>ID</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Estado</th><th>Acciones</th></tr></thead>
+                <tbody id="adminProductsTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="view" id="view-admin-pedidos">
+        <h2 class="section-title">PEDIDOS DE CLIENTES</h2>
+        <div class="admin-header"><button class="cta-btn secondary" id="btnCierreDiario">🌙 CIERRE DEL DÍA</button></div>
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead><tr><th>N° Pedido</th><th>Fecha</th><th>Cliente</th><th>Total</th><th>Pago</th><th>Estado</th><th>Acciones</th></tr></thead>
+                <tbody id="adminPedidosTable"></tbody>
+            </table>
+        </div>
+        <h2 class="section-title" style="margin-top: 60px; font-size: 22px;">HISTORIAL DE CIERRES DIARIOS</h2>
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead><tr><th>Fecha</th><th>Pedidos</th><th>Neto</th><th>IVA</th><th>Total</th><th>Contado</th><th>Cuotas</th></tr></thead>
+                <tbody id="cierresTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="view" id="view-dashboard">
+        <h2 class="section-title" id="dashboardTitle">DASHBOARD</h2>
+        <div class="dashboard-content" id="dashboardContent"></div>
+    </section>
+
+    <!-- MODALES -->
+    <div class="modal" id="modalLogin">
+        <div class="modal-content">
+            <span class="modal-close" data-close="modalLogin">✕</span>
+            <h2 class="modal-title">ACCESO AL SISTEMA</h2>
+            <form id="formLogin">
+                <div class="input-group"><input type="email" id="loginEmail" placeholder=" " required><label>Correo Electrónico</label></div>
+                <div class="input-group"><input type="password" id="loginPassword" placeholder=" " required><label>Contraseña</label></div>
+                <button type="submit" class="submit-btn">INICIAR SESIÓN</button>
+            </form>
+            <div class="modal-footer"><p>¿No tienes cuenta? <a href="#" id="linkToRegister">Regístrate aquí</a></p></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalRegister">
+        <div class="modal-content">
+            <span class="modal-close" data-close="modalRegister">✕</span>
+            <h2 class="modal-title">NUEVO REGISTRO</h2>
+            <form id="formRegister">
+                <div class="input-group"><input type="text" id="regNombre" placeholder=" " required><label>Nombre Completo</label></div>
+                <div class="input-group"><input type="email" id="regEmail" placeholder=" " required><label>Correo Electrónico</label></div>
+                <div class="input-group"><input type="password" id="regPassword" placeholder=" " required minlength="6"><label>Contraseña</label></div>
+                <div class="input-group"><select id="regRol" required><option value="">Selecciona un rol</option></select><label class="select-label">Rol</label></div>
+                <div class="input-group" id="codigoGroup" style="display:none;"><input type="text" id="regCodigo" placeholder=" "><label>Código Especial</label></div>
+                <div class="input-group"><input type="tel" id="regTelefono" placeholder=" "><label>Teléfono (opcional)</label></div>
+                <button type="submit" class="submit-btn">CREAR CUENTA</button>
+            </form>
+            <div class="modal-footer"><p>¿Ya tienes cuenta? <a href="#" id="linkToLogin">Inicia sesión</a></p></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalProducto">
+        <div class="modal-content">
+            <span class="modal-close" data-close="modalProducto">✕</span>
+            <h2 class="modal-title" id="modalProductoTitle">NUEVO PRODUCTO</h2>
+            <form id="formProducto">
+                <input type="hidden" id="prodID">
+                <div class="input-group"><input type="text" id="prodNombre" placeholder=" " required><label>Nombre</label></div>
+                <div class="input-group"><input type="text" id="prodCategoria" placeholder=" "><label>Categoría</label></div>
+                <div class="input-group"><input type="number" id="prodPrecio" step="0.01" placeholder=" " required min="0"><label>Precio</label></div>
+                <div class="input-group"><input type="number" id="prodStock" placeholder=" " required min="0"><label>Stock</label></div>
+                <div class="input-group"><textarea id="prodDescripcion" placeholder=" " rows="3"></textarea><label>Descripción</label></div>
+                <button type="submit" class="submit-btn">GUARDAR</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modalDevolver">
+        <div class="modal-content">
+            <span class="modal-close" data-close="modalDevolver">✕</span>
+            <h2 class="modal-title">DEVOLVER AL ALMACÉN</h2>
+            <form id="formDevolver">
+                <input type="hidden" id="devProdID">
+                <p class="dev-info">Producto: <strong id="devProdNombre"></strong></p>
+                <div class="input-group"><input type="number" id="devCantidad" placeholder=" " required min="1"><label>Cantidad</label></div>
+                <div class="input-group"><input type="text" id="devMotivo" placeholder=" " required><label>Motivo</label></div>
+                <button type="submit" class="submit-btn">DEVOLVER</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modalFactura">
+        <div class="modal-content factura-content">
+            <span class="modal-close" data-close="modalFactura">✕</span>
+            <div class="factura" id="facturaContent"></div>
+            <button class="submit-btn" id="btnImprimirFactura">🖨️ IMPRIMIR</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalCheckout">
+        <div class="modal-content">
+            <span class="modal-close" data-close="modalCheckout">✕</span>
+            <h2 class="modal-title">FINALIZAR PEDIDO</h2>
+            <form id="formCheckout">
+                <div class="input-group"><input type="text" id="checkNombre" placeholder=" " required><label>Nombre Completo</label></div>
+                <div class="input-group"><input type="email" id="checkEmail" placeholder=" " required><label>Correo Electrónico</label></div>
+                <div class="input-group"><input type="tel" id="checkTelefono" placeholder=" "><label>Teléfono</label></div>
+                <div class="input-group"><input type="text" id="checkDireccion" placeholder=" "><label>Dirección de envío</label></div>
+                <div class="input-group">
+                    <label style="position: static; color: var(--neon-cyan); font-size: 13px; display: block; margin-bottom: 8px;">Forma de pago</label>
+                    <div class="pago-options">
+                        <label class="pago-option"><input type="radio" name="formaPago" value="Contado" checked><span>💵 Contado</span></label>
+                        <label class="pago-option"><input type="radio" name="formaPago" value="Cuotas"><span>💳 Cuotas</span></label>
+                    </div>
+                </div>
+                <div class="input-group" id="cuotasGroup" style="display:none;">
+                    <select id="checkCuotas"><option value="3">3 cuotas</option><option value="6">6 cuotas</option><option value="12">12 cuotas</option></select>
+                    <label class="select-label">Cuotas</label>
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row"><span>Subtotal:</span><span id="checkSubtotal">$0.00</span></div>
+                    <div class="summary-row"><span>IVA (21%):</span><span id="checkIVA">$0.00</span></div>
+                    <div class="summary-row total-row"><span>TOTAL:</span><span id="checkTotal">$0.00</span></div>
+                    <div class="summary-row" id="cuotaInfo" style="display:none; color: #ffaa00;"><span>Monto cuota:</span><span id="checkMontoCuota">$0.00</span></div>
+                </div>
+                <button type="submit" class="submit-btn">CONFIRMAR PEDIDO</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modalPedidoConfirmado">
+        <div class="modal-content factura-content">
+            <span class="modal-close" data-close="modalPedidoConfirmado">✕</span>
+            <div class="factura" id="pedidoConfirmadoContent"></div>
+            <button class="submit-btn" id="btnCerrarPedido">ENTENDIDO</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/auth.js" defer></script>
+    <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiosco Online - El Amigo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏪 Kiosco "El Amigo"</h1>
+            <div class="header-buttons">
+                <div class="carrito-icono" onclick="verCarrito()">
+                    🛍️ Carrito (<span id="carrito-count">0</span>)
+                </div>
+                <div id="auth-buttons"></div>
+            </div>
+        </header>
+
+        <!-- Login/Registro -->
+        <div id="login-section" class="auth-section">
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="mostrarTab('login')">Iniciar Sesión</button>
+                <button class="tab-btn" onclick="mostrarTab('registro')">Registrarse</button>
+            </div>
+            <div id="login-form" class="auth-form">
+                <input type="email" id="login-email" placeholder="Email" class="auth-input">
+                <input type="password" id="login-password" placeholder="Contraseña" class="auth-input">
+                <button onclick="login()">Ingresar</button>
+            </div>
+            <div id="registro-form" class="auth-form" style="display:none">
+                <input type="text" id="reg-nombre" placeholder="Nombre completo" class="auth-input">
+                <input type="email" id="reg-email" placeholder="Email" class="auth-input">
+                <input type="tel" id="reg-telefono" placeholder="Teléfono (opcional)" class="auth-input">
+                <input type="password" id="reg-password" placeholder="Contraseña" class="auth-input">
+                <button onclick="registro()">Registrarse</button>
+            </div>
+        </div>
+
+        <!-- Panel Admin -->
+        <div id="admin-panel" style="display:none">
+            <div class="admin-section">
+                <h3>📦 ABM Productos</h3>
+                <div class="producto-form">
+                    <input type="text" id="prod-nombre" placeholder="Nombre" class="auth-input">
+                    <input type="number" id="prod-precio" placeholder="Precio" class="auth-input">
+                    <input type="text" id="prod-categoria" placeholder="Categoría" class="auth-input">
+                    <input type="number" id="prod-stock" placeholder="Stock" class="auth-input">
+                    <button onclick="guardarProducto()">Agregar Producto</button>
+                </div>
+                <div id="lista-productos-admin"></div>
+            </div>
+
+            <div class="admin-section">
+                <h3>👥 ABM Usuarios</h3>
+                <div id="lista-usuarios"></div>
+            </div>
+        </div>
+
+        <!-- Productos -->
+        <div id="productos-cliente" style="display:none">
+            <h2>Productos Disponibles</h2>
+            <div id="productos" class="productos-grid"></div>
+        </div>
+
+        <!-- Modal Carrito -->
+        <div id="carrito-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <h2>🛒 Tu Carrito</h2>
+                <div id="carrito-items"></div>
+                <h3>Total: $<span id="carrito-total">0</span></h3>
+                <div class="modal-buttons">
+                    <button class="btn-comprar" onclick="finalizarCompra()">✅ Finalizar Compra</button>
+                    <button class="btn-vaciar" onclick="vaciarCarrito()">🗑️ Vaciar Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
