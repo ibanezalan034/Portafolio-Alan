@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alan Ibáñez | Portafolio & Repositorio de Proyectos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#inicio" class="logo">Alan<span>.dev</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#proyectos">Proyectos (3)</a></li>
+          <li><a href="#repositorio">Repositorio</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / Perfil -->
+    <section id="inicio" class="hero container">
+      <p class="badge">7°2° Técnica N° 7 · Egreso 22/12/2026</p>
+      <h1>Hola, soy <span>Alan Ibáñez</span></h1>
+      <p class="hero-desc">
+        Desarrollador en formación enfocado en aplicaciones de escritorio con C# y SQL Server,
+        desarrollo web y arquitecturas limpias. Acá tenés mis 3 proyectos principales y el
+        acceso centralizado a su repositorio.
+      </p>
+      <div class="hero-actions">
+        <a href="#proyectos" class="btn btn-primary">Ver Proyectos</a>
+        <a href="#repositorio" class="btn btn-secondary">Ir al Repositorio</a>
+      </div>
+    </section>
+
+    <!-- Sección de los 3 Proyectos -->
+    <section id="proyectos" class="section container">
+      <div class="section-header">
+        <h2>Proyectos Destacados</h2>
+        <p>Seleccioná una categoría o explorá los detalles y repositorios de cada desarrollo.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtrar proyectos">
+        <button class="filter-btn active" data-filter="todos">Todos (3)</button>
+        <button class="filter-btn" data-filter="desktop">C# & SQL Server</button>
+        <button class="filter-btn" data-filter="web">Web & E-Commerce</button>
+      </div>
+
+      <div id="projects-grid" class="projects-grid">
+        <!-- Renderizado dinámico desde app.js -->
+      </div>
+    </section>
+
+    <!-- Sección Repositorio Centralizado -->
+    <section id="repositorio" class="section container">
+      <div class="repo-box">
+        <div>
+          <span class="badge">Control de Versiones · Git</span>
+          <h2>Repositorio General de Proyectos</h2>
+          <p>
+            Estructura organizada con código fuente, scripts/arquitectura, documentación técnica
+            y material de defensa para los 3 proyectos incluidos en el portafolio.
+          </p>
+        </div>
+        <div class="repo-tree">
+          <pre><code>portafolio-alan-ibanez/
+├── 01-gestion-comercial-csharp-sql/
+├── 02-neocommerce/
+├── 03-portal-mundiales/
+└── docs-y-defensa/</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="section container">
+      <div class="contact-card">
+        <h2>Contacto</h2>
+        <p>¿Querés revisar algún proyecto en detalle o consultar por código y documentación?</p>
+        <p class="contact-meta"><strong>Alumno:</strong> Alan Ibáñez · <strong>Ubicación:</strong> Lomas de Zamora (1832)</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de Detalle del Proyecto -->
+  <div id="project-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" id="modal-close" aria-label="Cerrar modal">&times;</button>
+      <span id="modal-category" class="badge"></span>
+      <h3 id="modal-title"></h3>
+      <p id="modal-description"></p>
+      <div class="modal-block">
+        <h4>Características principales</h4>
+        <ul id="modal-features"></ul>
+      </div>
+      <div class="modal-block">
+        <h4>Ruta en repositorio</h4>
+        <code id="modal-repo-path"></code>
+      </div>
+      <div class="modal-block">
+        <h4>Documentación / Defensa</h4>
+        <p id="modal-docs"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>Alan Ibáñez · Portafolio Web (HTML, CSS & Vanilla JS)</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
