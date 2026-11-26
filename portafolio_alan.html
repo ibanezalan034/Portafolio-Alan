@@ -3,118 +3,1027 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alan Ibáñez | Portafolio & Repositorio de Proyectos</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Alan Ibáñez | Desarrollador de Software</title>
+  <meta name="description" content="Portafolio profesional de Alan Ibáñez. Desarrollador Full-Stack en formación." />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050810;
+      --surface: rgba(15, 23, 42, 0.45);
+      --surface-hover: rgba(30, 41, 59, 0.65);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.45);
+      --border: rgba(255, 255, 255, 0.08);
+      --font-main: 'Outfit', sans-serif;
+      --font-alt: 'Space Grotesk', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Cursor personalizado solo en dispositivos con puntero fino */
+    .cursor, .cursor-follower { display: none; }
+
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+      a, button, .btn, .indicator, .copy-btn, .icon-btn { cursor: none; }
+
+      .cursor {
+        display: block;
+        width: 8px;
+        height: 8px;
+        background: var(--primary);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-follower {
+        display: block;
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s ease, height 0.2s ease, background 0.25s ease, border-color 0.25s ease;
+      }
+      .cursor-follower.cursor-hover {
+        width: 58px;
+        height: 58px;
+        background: rgba(56, 189, 248, 0.12);
+        border-color: var(--primary);
+      }
+    }
+
+    /* Fondo de partículas */
+    #particles-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Header flotante */
+    header {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      z-index: 100;
+      background: rgba(5, 8, 16, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.55rem 1.5rem;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .brand {
+      font-family: var(--font-alt);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); outline: none; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after, .nav-links a:focus-visible::after { width: 100%; }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .icon-btn:hover, .icon-btn:focus-visible {
+      background: var(--primary);
+      color: var(--bg);
+      transform: scale(1.08);
+      outline: none;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 1.5rem 4rem;
+      gap: 4rem;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(to right, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .typing-container {
+      font-family: var(--font-alt);
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      min-height: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background-color: var(--primary);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin-bottom: 2.5rem; }
+    .actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      font-family: var(--font-main);
+    }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover, .btn-primary:focus-visible {
+      background: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    .btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
+    .btn-outline:hover, .btn-outline:focus-visible {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    /* Foto 3D tilt */
+    .photo-wrapper { perspective: 1000px; display: flex; justify-content: center; }
+    .profile-card {
+      width: 100%;
+      max-width: 350px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+      padding: 1rem;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+      transition: transform 0.2s ease-out;
+      transform-style: preserve-3d;
+    }
+    .profile-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+      filter: grayscale(20%) contrast(110%);
+      transition: filter 0.3s;
+      transform: translateZ(30px);
+    }
+    .profile-card:hover img { filter: grayscale(0%) contrast(110%); }
+
+    /* Secciones */
+    section { max-width: 1200px; margin: 0 auto; padding: 6rem 1.5rem; }
+    .section-header { margin-bottom: 4rem; text-align: center; }
+    .section-header h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .section-header p { color: var(--muted); font-size: 1.1rem; }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Carrusel */
+    .carousel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 3rem;
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+    .slides-viewport { overflow: hidden; touch-action: pan-y; }
+    .slides-track {
+      display: flex;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+    .slide {
+      min-width: 100%;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .slide-category {
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .slide h3 { font-size: 2rem; margin-bottom: 1rem; line-height: 1.2; }
+    .slide p { color: var(--muted); margin-bottom: 1.5rem; font-size: 1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .tag {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-family: var(--font-alt);
+      color: #cbd5e1;
+    }
+    .slide-preview {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+    }
+    .slide-preview::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 20%;
+      right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    .preview-badge { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-alt); }
+    .preview-highlights { list-style: none; display: grid; gap: 0.8rem; font-size: 0.9rem; color: #e2e8f0; }
+    .preview-highlights li { display: flex; gap: 0.5rem; align-items: flex-start; }
+    .preview-highlights li::before { content: "→"; color: var(--primary); }
+
+    .carousel-footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .carousel-nav { display: flex; gap: 0.75rem; }
+    .indicators { display: flex; gap: 0.5rem; }
+    .indicator {
+      width: 40px;
+      height: 4px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      border-radius: 100px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .indicator.active { background: rgba(56, 189, 248, 0.25); }
+    .indicator.active::after {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0%;
+      background: var(--primary);
+      border-radius: 100px;
+      animation: progress 7s linear forwards;
+    }
+    .carousel.paused .indicator.active::after { animation-play-state: paused; }
+    @keyframes progress { from { width: 0%; } to { width: 100%; } }
+
+    /* CV */
+    .cv-paper {
+      background: #fff;
+      color: #0f172a;
+      border-radius: 20px;
+      padding: 4rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .cv-title h3 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+    .cv-title p { font-size: 1.1rem; font-weight: 600; color: #475569; }
+    .cv-contact { text-align: right; font-size: 0.9rem; color: #334155; font-family: var(--font-alt); }
+    .cv-contact p { margin-bottom: 0.3rem; }
+    .cv-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; }
+    .cv-section { margin-bottom: 2.5rem; }
+    .cv-section h4 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #0f172a;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .cv-section p, .cv-section li { font-size: 0.95rem; color: #334155; margin-bottom: 0.5rem; line-height: 1.5; }
+    .cv-section ul { padding-left: 1rem; }
+    .cv-section strong { color: #0f172a; }
+
+    /* Contacto */
+    .contact-box {
+      background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(129,140,248,0.05));
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 4rem;
+      text-align: center;
+    }
+    .contact-box h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .contact-box p { color: var(--muted); max-width: 500px; margin: 0 auto 2rem; }
+    .copy-btn {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 100px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: var(--font-alt);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.25s ease;
+    }
+    .copy-btn:hover, .copy-btn:focus-visible {
+      background: var(--primary);
+      box-shadow: 0 0 30px var(--primary-glow);
+      transform: scale(1.04);
+      outline: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: var(--bg);
+      padding: 0.9rem 1.8rem;
+      border-radius: 100px;
+      font-weight: 700;
+      transition: bottom 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 2000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .toast.show { bottom: 2rem; }
+
+    footer {
+      text-align: center;
+      padding: 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--font-alt);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 6.5rem; gap: 3rem; }
+      .hero p { margin: 0 auto 2.5rem; }
+      .actions { justify-content: center; }
+      .slide { grid-template-columns: 1fr; gap: 2rem; }
+      .carousel { padding: 2rem 1.5rem; }
+      .cv-paper { padding: 2rem 1.5rem; }
+      .cv-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .cv-header { text-align: center; justify-content: center; }
+      .cv-contact { text-align: center; }
+      .contact-box { padding: 2.5rem 1.5rem; }
+      header { top: 0; width: 100%; border-radius: 0; border-left: none; border-right: none; border-top: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .indicator.active::after { animation: none; width: 100%; }
+      .cursor-blink { animation: none; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      #particles-canvas, header, .hero, #proyectos, #contacto, footer, .no-print, .cursor, .cursor-follower, .toast { display: none !important; }
+      section { padding: 0; margin: 0; max-width: 100%; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .cv-paper { box-shadow: none; padding: 0; border-radius: 0; }
+      .cv-header { border-bottom: 2px solid #000; }
+      .cv-section h4 { border-bottom: 1px solid #000; }
+    }
+  </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="container nav-content">
-      <a href="#inicio" class="logo">Alan<span>.dev</span></a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#proyectos">Proyectos (3)</a></li>
-          <li><a href="#repositorio">Repositorio</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
+
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true"></div>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="nav">
+      <a href="#inicio" class="brand"><span>⚡</span> Alan Ibáñez</a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#inicio">Perfil</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#cv">CV</a>
       </nav>
+      <div style="display:flex; gap:0.5rem;">
+        <a href="#proyectos" class="icon-btn" title="Ver mis proyectos" aria-label="Proyectos">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/alan-ibañez-409024385" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Mi LinkedIn" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>
+        </a>
+        <a href="mailto:ibanezalan034@gmail.com" class="icon-btn" title="Enviarme un correo" aria-label="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4M20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>
+        </a>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- Hero / Perfil -->
-    <section id="inicio" class="hero container">
-      <p class="badge">7°2° Técnica N° 7 · Egreso 22/12/2026</p>
-      <h1>Hola, soy <span>Alan Ibáñez</span></h1>
-      <p class="hero-desc">
-        Desarrollador en formación enfocado en aplicaciones de escritorio con C# y SQL Server,
-        desarrollo web y arquitecturas limpias. Acá tenés mis 3 proyectos principales y el
-        acceso centralizado a su repositorio.
-      </p>
-      <div class="hero-actions">
-        <a href="#proyectos" class="btn btn-primary">Ver Proyectos</a>
-        <a href="#repositorio" class="btn btn-secondary">Ir al Repositorio</a>
+    <section id="inicio" class="hero">
+      <div class="reveal">
+        <div class="typing-container">
+          <span id="typing-text"></span><span class="cursor-blink"></span>
+        </div>
+        <h1>Hola, soy <br><span>Alan Ibáñez</span></h1>
+        <p>Desarrollador de software en formación. Creo soluciones eficientes combinando lógica de backend, diseño frontend moderno y bases de datos robustas.</p>
+        <div class="actions">
+          <a href="#proyectos" class="btn btn-primary">Ver Proyectos</a>
+          <a href="#cv" class="btn btn-outline">Ver Currículum</a>
+        </div>
+      </div>
+      <div class="photo-wrapper reveal">
+        <div class="profile-card" id="tilt-card">
+          <img
+            src="foto-cv.jpg"
+            alt="Alan Ibáñez"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22438%22 viewBox=%220 0 350 438%22><rect width=%22350%22 height=%22438%22 fill=%22%230f172a%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2338bdf8%22 font-family=%22sans-serif%22 font-size=%2224%22>Alan Ibáñez</text></svg>';"
+          />
+        </div>
       </div>
     </section>
 
-    <!-- Sección de los 3 Proyectos -->
-    <section id="proyectos" class="section container">
+    <section id="proyectos" class="reveal">
       <div class="section-header">
-        <h2>Proyectos Destacados</h2>
-        <p>Seleccioná una categoría o explorá los detalles y repositorios de cada desarrollo.</p>
+        <h2>Proyectos</h2>
+        <p>Una selección de mis mejores trabajos técnicos.</p>
       </div>
 
-      <div class="filters" role="group" aria-label="Filtrar proyectos">
-        <button class="filter-btn active" data-filter="todos">Todos (3)</button>
-        <button class="filter-btn" data-filter="desktop">C# & SQL Server</button>
-        <button class="filter-btn" data-filter="web">Web & E-Commerce</button>
-      </div>
+      <div class="carousel" id="mainCarousel" aria-roledescription="carrusel">
+        <div class="slides-viewport">
+          <div class="slides-track" id="slidesTrack">
+            <article class="slide">
+              <div>
+                <span class="slide-category">Aplicación de Escritorio</span>
+                <h3>Sistema de Gestión Comercial</h3>
+                <p>Software de administración diseñado para gestionar operaciones de compra, control de comprobantes y emisión de notas de crédito y débito.</p>
+                <div class="tags">
+                  <span class="tag">C#</span>
+                  <span class="tag">.NET 4.8</span>
+                  <span class="tag">SQL Server</span>
+                </div>
+              </div>
+              <div class="slide-preview">
+                <div class="preview-badge">// Funcionalidades</div>
+                <ul class="preview-highlights">
+                  <li>Control de cotejo de compras</li>
+                  <li>Gestión de notas de crédito/débito</li>
+                  <li>Administración de proveedores</li>
+                  <li>Stored Procedures optimizados</li>
+                </ul>
+              </div>
+            </article>
 
-      <div id="projects-grid" class="projects-grid">
-        <!-- Renderizado dinámico desde app.js -->
+            <article class="slide">
+              <div>
+                <span class="slide-category">Full-Stack Web</span>
+                <h3>NeoCommerce</h3>
+                <p>Plataforma de e-commerce con autenticación de usuarios, conexión a base de datos relacional e interfaz web dinámica y responsiva.</p>
+                <div class="tags">
+                  <span class="tag">Node.js</span>
+                  <span class="tag">JavaScript</span>
+                  <span class="tag">SQL</span>
+                  <span class="tag">CSS3</span>
+                </div>
+              </div>
+              <div class="slide-preview">
+                <div class="preview-badge">// Funcionalidades</div>
+                <ul class="preview-highlights">
+                  <li>Autenticación y sesiones</li>
+                  <li>Catálogo interactivo</li>
+                  <li>API conectada a DB</li>
+                  <li>Diseño UX/UI moderno</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="slide">
+              <div>
+                <span class="slide-category">Sitio Web Interactivo</span>
+                <h3>Portal de Mundiales</h3>
+                <p>Aplicación web informativa dedicada a la historia de los campeonatos mundiales de fútbol, con navegación dinámica y diseño adaptable.</p>
+                <div class="tags">
+                  <span class="tag">HTML5</span>
+                  <span class="tag">CSS3</span>
+                  <span class="tag">JavaScript</span>
+                </div>
+              </div>
+              <div class="slide-preview">
+                <div class="preview-badge">// Funcionalidades</div>
+                <ul class="preview-highlights">
+                  <li>Interfaz visual adaptable</li>
+                  <li>Interactividad DOM</li>
+                  <li>Organización de datos históricos</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="carousel-footer">
+          <div class="carousel-nav">
+            <button type="button" id="prevSlide" class="btn btn-outline" aria-label="Proyecto anterior">←</button>
+            <button type="button" id="nextSlide" class="btn btn-outline" aria-label="Siguiente proyecto">→</button>
+          </div>
+          <div class="indicators" id="carouselIndicators" role="tablist" aria-label="Seleccionar proyecto"></div>
+        </div>
       </div>
     </section>
 
-    <!-- Sección Repositorio Centralizado -->
-    <section id="repositorio" class="section container">
-      <div class="repo-box">
-        <div>
-          <span class="badge">Control de Versiones · Git</span>
-          <h2>Repositorio General de Proyectos</h2>
-          <p>
-            Estructura organizada con código fuente, scripts/arquitectura, documentación técnica
-            y material de defensa para los 3 proyectos incluidos en el portafolio.
-          </p>
+    <section id="cv">
+      <div class="section-header reveal no-print">
+        <h2>Currículum</h2>
+        <p>Listo para exportar a PDF con un solo clic.</p>
+        <button type="button" onclick="window.print()" class="btn btn-primary" style="margin-top:1.5rem;">Descargar PDF</button>
+      </div>
+
+      <div class="cv-paper reveal">
+        <div class="cv-header">
+          <div class="cv-title">
+            <h3>Alan Ibáñez</h3>
+            <p>Desarrollador de Software Junior</p>
+          </div>
+          <div class="cv-contact">
+            <p>Lomas de Zamora (CP 1832), Buenos Aires</p>
+            <p>ibanezalan034@gmail.com</p>
+            <p>linkedin.com/in/alan-ibañez</p>
+          </div>
         </div>
-        <div class="repo-tree">
-          <pre><code>portafolio-alan-ibanez/
-├── 01-gestion-comercial-csharp-sql/
-├── 02-neocommerce/
-├── 03-portal-mundiales/
-└── docs-y-defensa/</code></pre>
+
+        <div class="cv-grid">
+          <div>
+            <div class="cv-section">
+              <h4>Educación</h4>
+              <p><strong>Técnica N° 7</strong></p>
+              <p>Tecnicatura Secundaria en Desarrollo de Software</p>
+              <p>Egreso: Diciembre 2026</p>
+            </div>
+            <div class="cv-section">
+              <h4>Habilidades</h4>
+              <ul>
+                <li>C# / .NET Framework</li>
+                <li>JavaScript / Node.js</li>
+                <li>SQL Server / MySQL</li>
+                <li>HTML5 / CSS3</li>
+                <li>Git / GitHub / Figma</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="cv-section">
+              <h4>Perfil Profesional</h4>
+              <p>Estudiante avanzado de escuela técnica con experiencia práctica en el desarrollo de sistemas de gestión comercial, aplicaciones web full-stack y modelado de bases de datos. Apasionado por la resolución de problemas y la creación de interfaces de usuario intuitivas y eficientes.</p>
+            </div>
+            <div class="cv-section">
+              <h4>Experiencia en Proyectos</h4>
+              <p><strong>Sistema de Gestión Comercial (C# &amp; SQL Server)</strong><br>Desarrollo integral de sistema de escritorio para gestión de compras, cotejos y notas de crédito/débito.</p>
+              <p><strong>NeoCommerce (Node.js, SQL &amp; Web)</strong><br>Implementación de tienda web con autenticación de usuarios, base de datos relacional e interfaz dinámica.</p>
+              <p><strong>Portal Web de Mundiales (HTML, CSS &amp; JS)</strong><br>Diseño y programación de sitio web interactivo con foco en experiencia de usuario.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Contacto -->
-    <section id="contacto" class="section container">
-      <div class="contact-card">
-        <h2>Contacto</h2>
-        <p>¿Querés revisar algún proyecto en detalle o consultar por código y documentación?</p>
-        <p class="contact-meta"><strong>Alumno:</strong> Alan Ibáñez · <strong>Ubicación:</strong> Lomas de Zamora (1832)</p>
+    <section id="contacto" class="reveal no-print">
+      <div class="contact-box">
+        <h2>¿Trabajamos juntos?</h2>
+        <p>Estoy disponible para nuevos proyectos y oportunidades laborales. Copiá mi email y contactame.</p>
+        <button type="button" class="copy-btn" id="copyEmailBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg>
+          ibanezalan034@gmail.com
+        </button>
       </div>
     </section>
   </main>
 
-  <!-- Modal de Detalle del Proyecto -->
-  <div id="project-modal" class="modal hidden" aria-hidden="true">
-    <div class="modal-backdrop" id="modal-backdrop"></div>
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <button class="modal-close" id="modal-close" aria-label="Cerrar modal">&times;</button>
-      <span id="modal-category" class="badge"></span>
-      <h3 id="modal-title"></h3>
-      <p id="modal-description"></p>
-      <div class="modal-block">
-        <h4>Características principales</h4>
-        <ul id="modal-features"></ul>
-      </div>
-      <div class="modal-block">
-        <h4>Ruta en repositorio</h4>
-        <code id="modal-repo-path"></code>
-      </div>
-      <div class="modal-block">
-        <h4>Documentación / Defensa</h4>
-        <p id="modal-docs"></p>
-      </div>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>Alan Ibáñez · Portafolio Web (HTML, CSS & Vanilla JS)</p>
-    </div>
+  <footer>
+    <p>Diseñado y programado por Alan Ibáñez · 2026</p>
+    <p style="margin-top:0.5rem; font-size:0.8rem; opacity:0.6;">HTML · CSS · JS · C# · SQL</p>
   </footer>
 
-  <script src="app.js"></script>
+  <div class="toast" id="toast" role="status" aria-live="polite">¡Email copiado al portapapeles!</div>
+
+  <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Cursor personalizado
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+    if (cursor && follower && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      let mouseX = -100, mouseY = -100;
+      let followerX = -100, followerY = -100;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+      });
+
+      function animateFollower() {
+        followerX += (mouseX - followerX) * 0.16;
+        followerY += (mouseY - followerY) * 0.16;
+        follower.style.left = followerX + 'px';
+        follower.style.top = followerY + 'px';
+        requestAnimationFrame(animateFollower);
+      }
+      requestAnimationFrame(animateFollower);
+
+      document.querySelectorAll('a, button, .btn, .indicator, .copy-btn, .icon-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => follower.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => follower.classList.remove('cursor-hover'));
+      });
+    }
+
+    // Typing effect
+    const typingText = document.getElementById('typing-text');
+    const phrases = ["Desarrollador Full-Stack", "Técnico en Software", "Apasionado por el Código"];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    if (prefersReducedMotion) {
+      typingText.textContent = phrases[0];
+    } else {
+      function type() {
+        const currentPhrase = phrases[phraseIndex];
+        charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+        typingText.textContent = currentPhrase.substring(0, charIndex);
+
+        let typeSpeed = isDeleting ? 45 : 95;
+        if (!isDeleting && charIndex === currentPhrase.length) {
+          typeSpeed = 2000;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          typeSpeed = 450;
+        }
+        setTimeout(type, typeSpeed);
+      }
+      setTimeout(type, 600);
+    }
+
+    // 3D Tilt card
+    const tiltCard = document.getElementById('tilt-card');
+    const photoWrapper = document.querySelector('.photo-wrapper');
+    if (tiltCard && photoWrapper && !prefersReducedMotion) {
+      photoWrapper.addEventListener('mousemove', (e) => {
+        const rect = photoWrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -12;
+        const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 12;
+        tiltCard.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+      });
+      photoWrapper.addEventListener('mouseleave', () => {
+        tiltCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+    }
+
+    // Partículas en canvas
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    let w = 0, h = 0;
+    let particlesRafId = null;
+
+    function setCanvasSize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 1.5 + 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.45;
+        this.speedY = (Math.random() - 0.5) * 0.45;
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x = (this.x + this.speedX + w) % w;
+        this.y = (this.y + this.speedY + h) % h;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      const count = window.innerWidth < 768 ? 45 : 90;
+      particlesArray = Array.from({ length: count }, () => new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of particlesArray) {
+        p.update();
+        p.draw();
+      }
+      if (!document.hidden && !prefersReducedMotion) {
+        particlesRafId = requestAnimationFrame(animateParticles);
+      }
+    }
+
+    setCanvasSize();
+    initParticles();
+    if (!prefersReducedMotion) animateParticles();
+
+    window.addEventListener('resize', () => {
+      setCanvasSize();
+      initParticles();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (particlesRafId) cancelAnimationFrame(particlesRafId);
+      } else if (!prefersReducedMotion) {
+        animateParticles();
+      }
+    });
+
+    // Carrusel con track deslizante
+    const track = document.getElementById("slidesTrack");
+    const slides = document.querySelectorAll("#slidesTrack .slide");
+    const indicatorsContainer = document.getElementById("carouselIndicators");
+    const carousel = document.getElementById("mainCarousel");
+    let current = 0;
+    let autoPlayInterval;
+    const SLIDE_DURATION = 7000;
+
+    slides.forEach((_, index) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "indicator" + (index === 0 ? " active" : "");
+      btn.setAttribute("role", "tab");
+      btn.setAttribute("aria-label", `Proyecto ${index + 1}`);
+      btn.setAttribute("aria-selected", index === 0 ? "true" : "false");
+      btn.addEventListener("click", () => {
+        showSlide(index);
+        resetAutoPlay();
+      });
+      indicatorsContainer.appendChild(btn);
+    });
+
+    const indicators = document.querySelectorAll(".indicator");
+
+    function updateTrackPosition(offsetPx = 0, animate = true) {
+      track.style.transition = animate ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)" : "none";
+      const basePercent = -current * 100;
+      track.style.transform = `translateX(calc(${basePercent}% + ${offsetPx}px))`;
+    }
+
+    function showSlide(index) {
+      indicators[current].classList.remove("active");
+      indicators[current].setAttribute("aria-selected", "false");
+      current = (index + slides.length) % slides.length;
+      indicators[current].classList.add("active");
+      indicators[current].setAttribute("aria-selected", "true");
+      updateTrackPosition(0, true);
+    }
+
+    function startAutoPlay() {
+      clearInterval(autoPlayInterval);
+      if (prefersReducedMotion) return;
+      autoPlayInterval = setInterval(() => showSlide(current + 1), SLIDE_DURATION);
+    }
+
+    function resetAutoPlay() {
+      clearInterval(autoPlayInterval);
+      startAutoPlay();
+      const activeIndicator = indicators[current];
+      activeIndicator.style.animation = 'none';
+      void activeIndicator.offsetWidth;
+      activeIndicator.style.animation = null;
+    }
+
+    document.getElementById("prevSlide").addEventListener("click", () => {
+      showSlide(current - 1);
+      resetAutoPlay();
+    });
+    document.getElementById("nextSlide").addEventListener("click", () => {
+      showSlide(current + 1);
+      resetAutoPlay();
+    });
+
+    // Swipe / Drag en carrusel
+    let isDragging = false;
+    let startX = 0;
+    let deltaX = 0;
+
+    function getClientX(e) {
+      return e.touches ? e.touches[0].clientX : e.clientX;
+    }
+
+    function dragStart(e) {
+      if (e.target.closest('button')) return;
+      isDragging = true;
+      startX = getClientX(e);
+      deltaX = 0;
+      carousel.classList.add('paused');
+      clearInterval(autoPlayInterval);
+      updateTrackPosition(0, false);
+    }
+
+    function dragMove(e) {
+      if (!isDragging) return;
+      deltaX = getClientX(e) - startX;
+      updateTrackPosition(deltaX, false);
+    }
+
+    function dragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      carousel.classList.remove('paused');
+
+      if (deltaX < -80) {
+        showSlide(current + 1);
+      } else if (deltaX > 80) {
+        showSlide(current - 1);
+      } else {
+        updateTrackPosition(0, true);
+      }
+      deltaX = 0;
+      resetAutoPlay();
+    }
+
+    track.addEventListener('mousedown', dragStart);
+    window.addEventListener('mousemove', dragMove);
+    window.addEventListener('mouseup', dragEnd);
+    track.addEventListener('touchstart', dragStart, { passive: true });
+    track.addEventListener('touchmove', dragMove, { passive: true });
+    track.addEventListener('touchend', dragEnd);
+
+    carousel.addEventListener("mouseenter", () => { if (!isDragging) clearInterval(autoPlayInterval); });
+    carousel.addEventListener("mouseleave", () => { if (!isDragging) startAutoPlay(); });
+
+    startAutoPlay();
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealElements.forEach(el => el.classList.add('active'));
+    } else {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // Copiar email
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const toast = document.getElementById('toast');
+    let toastTimeout;
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    copyBtn.addEventListener('click', async () => {
+      const email = "ibanezalan034@gmail.com";
+      try {
+        await navigator.clipboard.writeText(email);
+        showToast("¡Email copiado al portapapeles!");
+      } catch {
+        const helper = document.createElement('textarea');
+        helper.value = email;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.opacity = '0';
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand('copy');
+        document.body.removeChild(helper);
+        showToast("¡Email copiado al portapapeles!");
+      }
+    });
+
+    // Atajos de teclado solo cuando el carrusel está visible
+    document.addEventListener("keydown", (e) => {
+      const rect = carousel.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      if (!isVisible) return;
+      if (e.key === "ArrowLeft") { showSlide(current - 1); resetAutoPlay(); }
+      else if (e.key === "ArrowRight") { showSlide(current + 1); resetAutoPlay(); }
+    });
+  </script>
 </body>
 </html>
